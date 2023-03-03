@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"
+    />
+    <link rel="stylesheet" href="css/themes/my-custom-theme.css" />
+    <link rel="stylesheet" href="css/themes/jquery.mobile.icons.min.css" />
+
+    <style>
+      img {
+        width: 200px;
+        height: 200px;
+      }
+    </style>
+
+    <script
+      type="text/javascript"
+      src="http://code.jquery.com/jquery-1.11.3.min.js"
+    ></script>
+    <script
+      type="text/javascript"
+      src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"
+    ></script>
+  </head>
+
+  <body>
+    <section onload="filterList()" data-role="page" id="firstPage">
+      <header data-role="header">
+        <a href="#secondPage" data-role="button" data-icon="plus">Add</a>
+        <h1>Contact List</h1>
+      </header>
+
+      <ul
+        data-role="listview"
+        data-filter="true"
+        data-filter-placeholder="Search Contacts..."
+        data-inset="true"
+        id="Unlist"
+      ></ul>
+
+      <footer data-role="footer">
+        <h4>Contact List</h4>
+      </footer>
+    </section>
+
+    <section data-role="page" id="secondPage">
+      <form onsubmit="return add()">
+        <header data-role="header">
+          <a href="#firstPage" data-role="button" data-icon="arrow-l">Back</a>
+          <h1>Contact List</h1>
+        </header>
+        <ul data-role="listview" data-inset="true">
+          <li class="ui-field-contain">
+            <label for="name2">Name:</label>
+            <input
+              type="text"
+              name="name2"
+              id="name2"
+              value=""
+              data-clear-btn="true"
+              required
+            />
+          </li>
+          <li class="ui-field-contain">
+            <label for="textarea2">Phone:</label>
+            <input type="text" name="textarea2" required id="phone" />
+          </li>
+          <li class="ui-field-contain">
+            <label for="textarea2">Email:</label>
+            <input type="email" required name="textarea2" id="Email" />
+          </li>
+          <li class="ui-field-contain">
+            <label for="flip2">Gender:</label>
+            <select name="flip2" id="gender" data-role="slider">
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+          </li>
+
+          <li class="ui-body ui-body-b">
+            <fieldset class="ui-grid-a">
+              <div class="ui-block-a">
+                <input
+                  onclick="filterList()"
+                  class="ui-btn ui-corner-all ui-btn-a"
+                  type="reset"
+                  value="Cancel"
+                />
+              </div>
+              <div class="ui-block-b">
+                <input
+                  type="submit"
+                  class="ui-btn ui-corner-all ui-btn-a"
+                  value="Save"
+                />
+              </div>
+            </fieldset>
+          </li>
+        </ul>
+      </form>
+      <footer data-role="footer">
+        <h4>Contact List</h4>
+      </footer>
+    </section>
+    <br /><br />
+
+    <section data-role="page" id="thirdPage">
+      <header data-role="header">
+        <a href="#firstPage" data-role="button" data-icon="arrow-l">Back</a>
+        <h1 id="header"></h1>
+      </header>
+      <img id="img" />
+      <table>
+        <tr>
+          <td>
+            <span
+              ><a
+                href="#deleteit"
+                class="ui-btn ui-corner-all ui-icon-delete ui-btn-icon-notext"
+                >Delete Icon</a
+              ></span
+            >
+          </td>
+          <td></td>
+          <td>
+            <span
+              ><a
+                onclick="editPages()"
+                href="#FormDesign"
+                data-rel="popup"
+                data-position-to="window"
+                class="ui-btn ui-corner-all ui-icon-edit ui-btn-icon-notext"
+                data-transition="pop"
+                >Edit Icon</a
+              ></span
+            >
+          </td>
+          <td>
+            <span
+              ><a
+                href="tel:19991"
+                class="ui-btn ui-corner-all ui-icon-phone ui-btn-icon-notext"
+                >Phone Icon</a
+              ></span
+            >
+          </td>
+        </tr>
+      </table>
+
+      <div
+        data-role="popup"
+        id="FormDesign"
+        data-theme="a"
+        class="ui-corner-all"
+      >
+        <form>
+          <div style="padding: 10px 20px">
+            <h3>Edit Contact</h3>
+
+            <label> Name: </label>
+
+            <input
+              type="text"
+              name="user"
+              value=""
+              id="editName"
+              data-theme="a"
+            />
+
+            <label> Phone </label>
+
+            <input
+              type="text"
+              name="user"
+              value=""
+              id="editPhone"
+              data-theme="a"
+            />
+
+            <label> Email: </label>
+
+            <input
+              type="email"
+              name="user"
+              value=""
+              id="editEmail"
+              data-theme="a"
+            />
+
+            <label>Gender:</label>
+            <select id="editGender" data-role="slider">
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+
+            <span>
+              <button
+                type="submit"
+                class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-left ui-icon-check"
+                onclick="editSave()"
+              >
+                Save
+              </button>
+            </span>
+            <span
+              ><button type="reset" onclick="editCancel()">Cancel</button></span
+            >
+          </div>
+        </form>
+      </div>
+
+      <footer data-role="footer">
+        <h4>Contact List</h4>
+      </footer>
+    </section>
+
+    <section data-role="dialog" id="deleteit">
+      <p>Delete Contact?</p>
+      <fieldset class="ui-grid-a">
+        <div class="ui-block-a">
+          <button
+            type="submit"
+            class="ui-btn ui-corner-all ui-btn-a"
+            onclick="filterList()"
+          >
+            Cancel
+          </button>
+        </div>
+        <div class="ui-block-b">
+          <button
+            id="delete"
+            type="submit"
+            class="ui-btn ui-corner-all ui-btn-a"
+            onclick="remove()"
+          >
+            Delete
+          </button>
+        </div>
+      </fieldset>
+    </section>
+
+    <script src="contacts.js"></script>
+  </body>
+</html>
